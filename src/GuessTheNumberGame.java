@@ -10,8 +10,10 @@ public class GuessTheNumberGame {
     public static void main(String[] args) {
         inicializarJogo();
         Player jogador = getPlayer();
-        jogarJogo(jogador);
+        int maxTentativas = 10;
+        jogarJogo(jogador, maxTentativas);
     }
+
 
     public static void inicializarJogo() {
         numeroAlvo = random.nextInt(100) + 1;
@@ -42,17 +44,19 @@ public class GuessTheNumberGame {
         return jogador;
     }
 
-    public static void jogarJogo(Player jogador) {
+    public static int jogarJogo(Player jogador, int maxTentativas) {
         Player jogadorComputador = new ComputerPlayer("Computador");
+        int tentativas = 0;
 
-        while (true) {
+        while (tentativas < maxTentativas) {
             int suposicao = jogador.makeGuess();
             System.out.println(jogador.getName() + " supõe: " + suposicao);
+            tentativas++;
 
             if (suposicao == numeroAlvo) {
                 System.out.println(jogador.getName() + " acertou o número correto! É " + suposicao + ". Fim de jogo!");
                 imprimirTodasSuposicoes(jogador);
-                break;
+                return 0;
             } else if (suposicao < numeroAlvo) {
                 System.out.println("Muito baixo!");
             } else {
@@ -64,7 +68,15 @@ public class GuessTheNumberGame {
             jogador = jogadorComputador;
             jogadorComputador = temp;
         }
+
+        if (tentativas >= maxTentativas) {
+            System.out.println("Fim de jogo! O número de tentativas máximo foi alcançado.");
+        }
+
+        return 1;
     }
+
+
 
     public static void imprimirTodasSuposicoes(Player jogador) {
         System.out.println(jogador.getName() + " fez as seguintes suposições:");
@@ -73,5 +85,7 @@ public class GuessTheNumberGame {
         }
         System.out.println();
     }
+
+
 }
 
