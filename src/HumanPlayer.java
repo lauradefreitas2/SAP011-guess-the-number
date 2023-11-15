@@ -8,6 +8,11 @@ public class HumanPlayer extends Player {
         super(nome);
     }
 
+    public HumanPlayer(String nome, int initialGuess) {
+        super(nome);
+        this.manualGuess = initialGuess;
+    }
+
     public void setManualGuess(int guess) {
         this.manualGuess = guess;
     }

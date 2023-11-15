@@ -1,10 +1,10 @@
 package test;
+
 import org.junit.jupiter.api.Test;
 import src.ComputerPlayer;
 import src.GuessTheNumberGame;
 import src.HumanPlayer;
 import src.Player;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -13,7 +13,6 @@ public class GuessTheNumberGameTest {
     public void testHumanPlayerMakeGuess() {
         HumanPlayer player = new HumanPlayer("Fulana");
 
-
         player.setManualGuess(42);
 
         int guess = player.makeGuess();
@@ -21,10 +20,8 @@ public class GuessTheNumberGameTest {
         assertEquals(42, guess);
     }
 
-
     @Test
     public void testComputerPlayerMakeGuess() {
-
         ComputerPlayer player = new ComputerPlayer("Computer");
 
         int guess = player.makeGuess();
@@ -34,14 +31,15 @@ public class GuessTheNumberGameTest {
 
     @Test
     public void testGamePlay() {
-        GuessTheNumberGame.inicializarJogo();
-        Player jogador = new ComputerPlayer("Computador");
+        GuessTheNumberGame game = new GuessTheNumberGame();
+        game.inicializarJogo();
+
+        Player jogadorHumano = new HumanPlayer("Jogador", 50);
+        Player jogadorComputador = new ComputerPlayer("Computador");
         int maxTentativas = 10;
-        int result = GuessTheNumberGame.jogarJogo(jogador, maxTentativas);
+        int result = game.jogarJogo(jogadorHumano, jogadorComputador, maxTentativas);
         assertTrue(result == 0 || result == 1);
     }
-
-
 
 }
 
